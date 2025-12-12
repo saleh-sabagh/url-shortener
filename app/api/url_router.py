@@ -41,6 +41,11 @@ def create_url(payload: URLCreate, db: Session = Depends(get_db)) -> Dict[str, A
             status_code=400,
             detail={"status": "failure", "message": str(e)},
         )
+    except RuntimeError as e:
+        raise HTTPException(
+            status_code=500,
+            detail={"status": "failure", "message": str(e)},
+        )
     except Exception:
         raise HTTPException(
             status_code=500,
