@@ -13,7 +13,7 @@ def create_url(payload: URLCreate, db=Depends(get_db)):
     service = URLService(repo)
     try:
         url_obj = service.create_short_url(str(payload.original_url))
-        return {"status": "success", "data": {"url": URLOut.from_orm(url_obj).dict()}}
+        return {"status": "success", "data": {"url": URLOut.model_validate(url_obj).model_dump()}}
     except ValueError as e:
         raise HTTPException(status_code=400, detail={"status":"failure","message":str(e)})
     except Exception as e:
