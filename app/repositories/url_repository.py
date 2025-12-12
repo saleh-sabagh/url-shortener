@@ -16,7 +16,7 @@ class URLRepository:
         return self.db.query(URL).filter(URL.short_code == code, URL.is_active == True).first()
 
     def get_all(self):
-        return self.db.query(URL).order_by(URL.created_at.desc()).all()
+        return self.db.query(URL).filter(URL.is_active == True).order_by(URL.created_at.desc()).all()
 
     def delete_by_short_code(self, code: str):
         obj = self.get_by_short_code(code)

@@ -31,7 +31,7 @@ def redirect_to_original(code: str, db=Depends(get_db)):
 def get_all_urls(db=Depends(get_db)):
     repo = URLRepository(db)
     data = repo.get_all()
-    return {"status":"success", "data": {"urls": [URLOut.from_orm(x).dict() for x in data]}}
+    return {"status":"success", "data": {"urls": [URLOut.model_validate(x).model_dump() for x in data]}}
 
 @router.delete("/urls/{code}", response_model=ResponseModel)
 def delete_url(code: str, db=Depends(get_db)):
