@@ -88,7 +88,7 @@ def get_all_urls(db: Session = Depends(get_db)) -> Dict[str, Any]:
     return {
         "status": "success",
         "data": {"urls": [URLOut.model_validate(x).model_dump() for x in data]},
-
+    }
 
 @router.delete("/urls/{code}", response_model=ResponseModel)
 def delete_url(code: str, db: Session = Depends(get_db)) -> Dict[str, Any]:
