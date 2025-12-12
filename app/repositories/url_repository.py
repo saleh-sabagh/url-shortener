@@ -41,7 +41,7 @@ class URLRepository:
         Returns:
             The URL object if found and active, None otherwise.
         """
-        return self.db.query(URL).filter(URL.short_code == code, URL.is_active is True).first()
+        return self.db.query(URL).filter(URL.short_code == code, URL.is_active == True).first()
 
     def get_all(self) -> List[URL]:
         """Retrieve all active URLs ordered by creation date.
@@ -49,7 +49,7 @@ class URLRepository:
         Returns:
             List of active URL objects ordered by newest first.
         """
-        return self.db.query(URL).filter(URL.is_active is True).order_by(URL.created_at.desc()).all()
+        return self.db.query(URL).filter(URL.is_active == True).order_by(URL.created_at.desc()).all()
 
     def delete_by_short_code(self, code: str) -> Optional[URL]:
         """Delete a URL by its short code.
