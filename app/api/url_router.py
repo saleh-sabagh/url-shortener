@@ -26,3 +26,17 @@ def redirect_to_original(code: str, db=Depends(get_db)):
     if not url_obj:
         raise HTTPException(status_code=404, detail={"status":"failure","message":"URL not found"})
     return RedirectResponse(url_obj.original_url, status_code=302)
+
+@router.get("/urls", response_model=ResponseModel)
+def get_all_urls(db=Depends(get_db)):
+    repo = URLRepository(db)
+    data = repo.get_all()
+    return {"status":"success", "data": {"urls": [URLOut.from_orm(x).dict() for x in data]}}
+
+@router.delete("/urls/{code}", response_model=ResponseModel)
+def delete_url(code: str, db=Depends(get_db)):
+    repo = URLRepository(db)
+    obj = repo.delete_by_short_code(code)
+    if not obj:
+        raise HTTPException(status_code=404, detail={"status":"failure","message":"URL not found"})
+    return {"status":"success", "message":"URL deleted successfully"}
