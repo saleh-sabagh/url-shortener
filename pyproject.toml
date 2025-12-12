@@ -5,8 +5,8 @@ description = ""
 authors = [
     {name = "saleh sabagh"}
 ]
-readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11,<4.0"
+
 dependencies = [
     "fastapi (>=0.124.4,<0.125.0)",
     "uvicorn[standard] (>=0.38.0,<0.39.0)",
@@ -17,6 +17,9 @@ dependencies = [
     "python-dotenv (>=1.2.1,<2.0.0)"
 ]
 
+packages = [
+    { include = "url_shortener" }
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
