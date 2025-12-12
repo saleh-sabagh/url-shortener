@@ -48,7 +48,7 @@ def create_url(payload: URLCreate, db: Session = Depends(get_db)) -> Dict[str, A
         )
 
 
-@router.get("/u/{code}")
+@router.get("/u/{code}", status_code=302)
 def redirect_to_original(code: str, db: Session = Depends(get_db)) -> RedirectResponse:
     """Redirect to the original URL using the short code.
 
